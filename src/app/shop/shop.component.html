@@ -1,0 +1,106 @@
+<app-navbar></app-navbar>
+
+<br>
+
+
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-sm-auto">
+            <table class="table">
+                <tr>
+                    <td>
+                        <h4 style="font-weight: bold;">{{"SEARCH" |translate }}</h4>
+                        <input #inputID type="search"
+                            (keyup.enter)="searchForKeyword(inputID.value); scroll(productList)"
+                            placeholder="{{'SEARCH FOR PRODUCTS' | translate}}" aria-label="Search">
+                    </td>
+                </tr>
+                <br>
+                <tr>
+                    <button class="btn btn-primary w-100" (click)="scroll(productList);searchForKeyword(inputID.value)">
+                        {{"SEARCH" | translate}}</button>
+                </tr>
+                <br>
+                <tr>
+                    <td>
+                        <h4 class="justify-content-center" style="font-weight: bold;">{{"CATEGORIES" | translate}}</h4>
+                        <div>
+                            <!--too loop-->
+                            <div>
+                                <h5>{{"PRODUCT CLASS" | translate}}1</h5>
+                                <div class="overflow-auto" style="height: 100px;">
+                                    <a (click)="scroll(productList)" routerLink="/shop/category/Cat1/u1">{{"PRODUCT GROUP" | translate }}1</a> <br>
+                                    <a (click)="scroll(productList)" routerLink="/shop/category/Cat1/u2">{{"PRODUCT GROUP" | translate }}2</a> <br>
+                                    <a (click)="scroll(productList)" routerLink="/shop/category/Cat1/u3">{{"PRODUCT GROUP" | translate }}3</a> <br>
+                                    <a (click)="scroll(productList)" routerLink="/shop/category/Cat1/u4">{{"PRODUCT GROUP" | translate }}4</a> <br>
+                                    <a (click)="scroll(productList)" routerLink="/shop/category/Cat1/u5">{{"PRODUCT GROUP" | translate }}5</a> <br>
+                                </div>
+                            </div>
+                            <div>
+                                <h5>{{"PRODUCT CLASS" | translate}}2</h5>
+                                <div class="overflow-auto" style="height: 100px;">
+                                    <a (click)="scroll(productList)" routerLink="/shop/category/Cat2/u6">{{"PRODUCT GROUP" | translate }}6</a> <br>
+                                    <a (click)="scroll(productList)" routerLink="/shop/category/Cat2/u7">{{"PRODUCT GROUP" | translate }}7</a> <br>
+                                    <a (click)="scroll(productList)" routerLink="/shop/category/Cat2/u8">{{"PRODUCT GROUP" | translate }}8</a> <br>
+                                    <a (click)="scroll(productList)" routerLink="/shop/category/Cat2/u9">{{"PRODUCT GROUP" | translate }}9</a> <br>
+                                    <a (click)="scroll(productList)" routerLink="/shop/category/Cat2/u10">{{"PRODUCT GROUP" | translate }}10</a>
+                                    <br>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="col col-2 col-sm-auto">
+
+        </div>
+
+        <!--Product list-->
+        <div #productList class="col-8">
+            <div class="row">
+
+                <h3>{{"SEARCH RESULT" | translate}}: <!--{{listOfMovies.length}}--></h3>
+                <div class="container-md">
+                    <pagination-controls (pageChange)="page = $event" (click)="setPageParam()"
+                    [nextLabel]="getTranslation('NEXT')"
+                    [previousLabel]="getTranslation('PREVIOUS')"
+                    ></pagination-controls>
+                </div>
+
+                <!--list of cards, to loop-->
+                <a *ngFor="let movie of listOfItems | paginate: { itemsPerPage: 10, currentPage: page }" class="card"
+                    style="width: 250px; height:400px; cursor:pointer; text-decoration: none; color: black;"
+                    [routerLink]="['/product/']+'item name'">
+                    <img class="card-img-top"
+                        src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/68939/angular-logo.png" />
+                    <div class="card-body" style="overflow-y: auto;">
+                        <div class="card-title" style="font-weight: bold;">
+                            item name
+                        </div>
+                        <hr>
+                        <span class="card-subtitle" style="font-style:italic;">Item name</span>
+
+                        <!-- <div class="card-text">
+                        </div>-->
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <br>
+</div>
+
+<div class="container">
+    <pagination-controls (pageChange)="page = $event" (click)="setPageParam()"
+    [nextLabel]="getTranslation('NEXT')"
+    [previousLabel]="getTranslation('PREVIOUS')"
+
+    ></pagination-controls>
+</div>
+
+<br>
+<app-footer></app-footer>
